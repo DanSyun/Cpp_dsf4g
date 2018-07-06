@@ -1,0 +1,63 @@
+enum ENSvrType
+{
+    EN_SVR_AUTH     = 1;
+    EN_SVR_HALL     = 2;
+    EN_SVR_GAME     = 3;
+    EN_SVR_DBPROXY  = 4;
+}
+
+// 一些常量
+enum ENCommon
+{
+    option allow_alias = true;
+    EN_MAX_PB_DATA_BUF          = 65536;    // db序列化最长值
+    EN_MAX_DB_PROC_REDO         = 10;       // 写db锁最多重做次数
+    EN_TIMER_TICK_MSEC          = 100;      // timer轮询间隔
+    EN_SESSION_CHECK_SEC        = 5;        // session超时检查间隔
+    EN_SESSION_TIMEOUT          = 5;        // session超时
+    EN_MAX_RSA_TOKEN_LEN        = 256;      // token长
+    EN_TOKEN_EXPIRE_SEC         = 86400;
+}
+
+// session 状态
+enum ENSessionSate
+{
+    EN_SESSION_ON_MSG           = 1;    // 收到请求
+    EN_SESSION_WAIT_SVR_RSP     = 2;    // 等待其他服务器返回
+    EN_SESSION_WAIT_GET_RSP     = 3;    // 等待读取数据返回
+    EN_SESSION_WAIT_SAVE_RSP    = 4;    // 等待更新数据返回
+}
+
+// handler 处理返回值
+enum ENHandlerResult
+{
+    EN_HANDLER_DONE     = 1;    // 结束handler，session
+    EN_HANDLER_HUP      = 2;    // 处理挂起，等待异步返回
+    EN_HANDLER_NEXT     = 3;    // 处理下个uid数据
+    EN_HANDLER_FAILED   = 4;    // 处理失败
+    EN_HANDLER_GET      = 5;    // 请求get
+    EN_HANDLER_SAVE     = 6;    // 请求save
+}
+
+// 消息返回值
+enum ENMessageResult
+{
+    EN_MESSAGE_OK                   = 0;
+    EN_MESSAGE_DB_ERR               = 1; // 数据库出错
+    EN_MESSAGE_SYS_ERR              = 2;
+    EN_MESSAGE_ACCOUNT_NOT_FOUND    = 3; // 账号不存在
+    EN_MESSAGE_LOGIN_FAILED         = 4; // 登录失败
+}
+
+// 账号类型
+enum ENAccountType
+{
+    EN_ACC_GEUST        = 0;
+    EN_ACC_PHONE        = 1;
+}
+
+// 游戏类型
+enum ENGameType
+{
+    EN_Game_Fruit       = 0;    // 水果机
+}

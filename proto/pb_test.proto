@@ -1,0 +1,4 @@
+message PBPlayer
+{
+    optional uint64 uid = 1;
+}

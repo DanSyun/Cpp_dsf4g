@@ -1,0 +1,24 @@
+message PBTcpConfig
+{
+    optional uint32 port_num    = 1;
+    repeated uint32 ports       = 2;
+	optional uint32	cs_shmkey	= 3;
+	optional uint32	sc_shmkey	= 4;
+}
+
+message PBLogicConfig
+{
+	optional uint32	cs_shmkey	= 1;
+	optional uint32	sc_shmkey	= 2;
+    required uint32 server_id   = 3;
+
+    // mng
+    optional uint32 max_player_num  = 4;
+    optional uint32 player_shmkey   = 5;
+}
+
+message PBProxyConfig
+{
+	optional uint32	port		= 1;
+}
+

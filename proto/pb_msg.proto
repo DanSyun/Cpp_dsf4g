@@ -1,0 +1,16 @@
+message MessageA
+{
+}
+
+message MessageB
+{
+}
+
+message msg
+{
+    oneof msg_union
+    {
+        MessageA msg_a	= 1;
+        MessageB msg_b	= 2;
+    }
+}

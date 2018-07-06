@@ -1,0 +1,45 @@
+import "pb_common.proto";
+import "pb_cs_msg.proto";
+import "pb_ss_msg.proto";
+import "pb_inter_msg.proto";
+import "pb_db_data.proto";
+
+message PBDBProcInfo
+{
+    optional uint64         uid             = 1;
+    repeated uint32         keys            = 2;
+    optional PBDBMsg        player          = 3;
+}
+
+message PBSession
+{
+    optional uint32         uid             = 1; // 客户端uid
+    optional uint32         session_id      = 2; // 会话id
+    optional uint32         update_time     = 3; // 超时检查
+    optional ENSessionSate  process_state   = 4; // 消息处理状态
+    optional uint32         logic_state     = 5; // 业务自定义状态
+    optional uint32         msg_id          = 6; // 消息id
+
+    optional PBCSMsg        cs_msg          = 7; // 保存消息
+    optional PBCSMsg        cs_response     = 8;
+    optional PBSSMsg        ss_msg          = 9;
+    optional PBSSMsg        ss_response     = 10;
+    optional PBInterMsg     inter_msg       = 11;
+
+    repeated PBDBProcInfo   db_procs        = 12; // db处理信息
+    optional uint64         cur_proc_index  = 13; // 当前处理dbmsg索引
+    optional uint32         redo_count      = 14;
+}
+
+message PBTimer
+{
+    optional uint32     timer_id        = 1;
+    optional uint64     timeout_msec    = 2;
+    optional PBInterMsg msg             = 3;
+}
+
+message PBPlayer
+{
+    optional uint64 uid         = 1;
+    optional uint64 table_id    = 2;
+}

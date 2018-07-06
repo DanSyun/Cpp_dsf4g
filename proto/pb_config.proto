@@ -1,0 +1,38 @@
+//////////////////////////////////////////////////////
+// 水果类型配置
+enum ENFruitType
+{
+    EN_FRUIT_NORMAL     = 1; // 普通水果
+    EN_FRUIT_LUCKY_RED  = 2; // 免费玩三次
+    EN_FRUIT_LUCKY_BLUE = 3; // 免费玩一次，该次出三个奖
+}
+message PBFruit
+{
+    optional uint32         pos     = 1;
+    optional string         name    = 2;
+    optional ENFruitType    type    = 3;
+    optional uint32         multi   = 4; // 普通水果倍率
+    optional uint32         odds    = 5; // 概率累积精确两位小数，比如两个水果概率[0,5000)[5000,10000)，配5000和10000
+}
+// 水果机房间配置
+message PBFruitTable
+{
+    optional uint32         table_type  = 1; // 场次0-n
+    optional uint32         bet_base    = 2; // 下注倍率
+    optional uint32         lucky_crit  = 3; // lucky暴击
+    optional uint32         crit_odds   = 4; // 暴击概率精确两位小数
+}
+// 水果机游戏配置
+message PBFruitConfig
+{
+	repeated PBFruitTable   tables  = 1;
+    repeated PBFruit        fruits  = 2;
+}
+
+message PBConfig
+{
+	oneof config_union
+	{
+		PBFruitConfig fruit	= 1;
+	}
+}

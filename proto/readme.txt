@@ -1,0 +1,9 @@
+cs_table    cs房间对象
+cs_msg      客户端服务器消息
+ss_msg      服务器之间消息
+inter_msg   内部消息
+config      业务配置
+svr_config  部署配置
+dbdata      db数据
+object      内存对象
+common      通用定义

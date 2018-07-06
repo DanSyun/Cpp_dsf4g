@@ -1,0 +1,110 @@
+import "pb_common.proto";
+import "pb_cs_table.proto";
+
+//////////////////////////////////////////////////////////////
+// 账号接口
+message CSRequestAuth
+{
+    optional uint32         type    = 1;
+    optional string         account = 2;
+    optional string         pwd     = 3;
+}
+message CSResponseAuth
+{
+    optional ENMessageResult    result  = 1;
+    optional uint64             uid     = 2;
+    optional bytes              token   = 3;
+}
+
+message CSRequestLogin
+{
+    optional string token = 1;
+}
+message CSResponseLogin
+{
+    optional ENMessageResult    result  = 1;
+    optional uint64             money   = 2;
+}
+
+message CSRequestLogout
+{
+}
+message CSResponseLogout
+{
+}
+
+//////////////////////////////////////////////////////////////
+// 游戏通用接口
+message CSRequestGameAddr
+{
+    optional ENGameType game_type   = 1;    // 游戏
+    optional uint32     table_type  = 2;    // 场次
+}
+message CSResponseGameAddr
+{
+    optional ENMessageResult    result  = 1;
+    optional string     ip          = 2;
+    optional uint32     port        = 3;
+    optional uint64     table_id    = 4;
+}
+
+message CSRequestLoginGame
+{
+    optional uint64     table_id    = 1;
+    optional string     token       = 2;
+}
+message CSResponseLoginGame
+{
+    optional ENMessageResult    result  = 1;
+    optional PBCSTable          table   = 2;
+}
+
+message CSRequestExitGame
+{
+}
+message CSResponseExitGame
+{
+}
+
+message CSRequestFruitPlay
+{
+}
+message CSResponseFruitPlay
+{
+}
+message CSRequestFruitBet
+{
+}
+message CSResponseFruitBet
+{
+}
+
+//////////////////////////////////////////////////////////////
+// cs ss inter 消息id必须唯一
+message PBCSMsg
+{
+    optional uint32 uid = 1;
+    optional uint32 ver = 2;
+    oneof msg_union
+    {
+        CSRequestAuth       cs_request_auth     = 10;       // 鉴权账号
+        CSResponseAuth      cs_response_auth    = 11;
+        CSRequestLogin      cs_request_login    = 12;       // 登录大厅
+        CSResponseLogin     cs_response_login   = 13;
+        CSResponseLogout    cs_request_logout   = 14;       // 登出
+        CSResponseLogout    cs_response_logout  = 15;
+
+        CSRequestGameAddr   cs_request_game_addr    = 30;   // 获取游戏地址
+        CSResponseGameAddr  cs_response_game_addr   = 31;
+        CSRequestLoginGame  cs_request_login_game   = 32;   // 登录游戏
+        CSResponseLoginGame cs_response_login_game  = 33;
+        CSRequestExitGame   cs_request_exit_game    = 34;   // 登出游戏
+        CSResponseExitGame  cs_response_exit_game   = 35;
+        
+        // 水果机
+        CSRequestFruitPlay  cs_request_fruit_play   = 50;   // 玩水果机
+        CSResponseFruitPlay cs_response_fruit_play  = 51;
+        CSRequestFruitBet   cs_request_fruit_bet    = 52;   // 猜大小
+        CSResponseFruitBet  cs_response_fruit_bet   = 53;
+    }
+}

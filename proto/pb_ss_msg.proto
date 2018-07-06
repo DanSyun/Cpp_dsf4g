@@ -1,0 +1,72 @@
+enum HandleResult
+{
+	E_HANDLE_OK = 1;
+	
+	E_HANDLE_ERROR = 2;
+	
+	E_HANDLE_VER_DIFFER = 3;
+}
+
+message PBDBData
+{
+    optional uint32 key     = 1;
+    optional bytes  blob    = 2;
+    optional uint32 ver     = 3;
+}
+
+
+message SSRequestGet
+{
+    optional uint64     uid     = 1;
+    repeated PBDBData   datas   = 2;
+}
+
+message SSResponseGet
+{
+    optional uint32     result  = 1;
+    optional uint64     uid     = 2;
+    repeated PBDBData   datas   = 3;
+}
+
+message SSRequestSave
+{
+    optional uint64     uid     = 1;
+    repeated PBDBData   datas   = 2;
+}
+
+message SSResponseSave
+{
+    optional uint32     result  = 1;
+    optional uint64     uid     = 2;
+    repeated PBDBData   datas   = 3;
+}
+
+message SSTest
+{
+    optional uint64     uid     = 1;
+    optional uint64     uids    = 2;
+}
+
+
+enum SSMsgType
+{
+    SS_Request  = 1;
+    SS_Response = 2;
+}
+//////////////////////////////////////////////////////////////
+// cs ss inter 消息id必须唯一
+message PBSSMsg
+{
+    optional SSMsgType  type    = 1;
+    optional uint64     uid     = 2;
+    oneof msg_union
+    {
+        SSRequestGet        ss_request_get      = 10000;
+        SSResponseGet       ss_response_get     = 10001;
+        SSRequestSave       ss_request_save     = 10002;
+        SSResponseSave      ss_response_save    = 10003;
+        
+        SSTest              ss_test             = 10004;
+    }
+}
+

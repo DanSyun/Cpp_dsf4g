@@ -1,0 +1,96 @@
+import "pb_common.proto";
+
+
+//////////////////////////////////////////////////////////////////
+// tcp 服务器
+message PBTcpConfig
+{
+    required uint32 cs_shmkey       = 1;
+    required uint32 sc_shmkey       = 2;
+
+    required uint32 port            = 4;
+    optional uint32 max_client_num  = 5 [default = 10000];
+}
+
+//////////////////////////////////////////////////////////////////
+// 中转 服务器
+message PBLogicSvr
+{
+    required ENSvrType  svr_type    = 1;
+    required uint32     svr_num     = 2;
+}
+message PBCenterConfig
+{
+    required uint32 msg_shmkey      = 1;
+    required uint32 port            = 2;
+    optional string ip              = 3;
+    optional uint32 max_svr_num     = 4 [default = 512];
+    optional uint32 ep_timeout      = 5 [default = 5];
+
+    repeated PBLogicSvr svrs       = 6;
+}
+
+
+//////////////////////////////////////////////////////////////////
+// 逻辑 服务器
+message PBAddr
+{
+    required string ip      = 1;
+    required uint32 port    = 2;
+}
+message PBLogicConfig
+{
+    // 重要配置
+    optional uint32	cs_shmkey       = 1;
+    optional uint32	sc_shmkey       = 2;
+    required uint32 msg_shmkey      = 3;
+
+    repeated PBAddr center_addrs    = 4;
+    optional string tcp_ip          = 5;
+    optional uint32 tcp_port        = 6;
+
+    // 对象池配置
+    optional uint32 max_session_num = 10;
+    optional uint32 session_shmkey  = 11;
+    optional uint32 max_timer_num   = 12;
+    optional uint32 timer_shmkey    = 13;
+    optional uint32 max_player_num  = 14;
+    optional uint32 player_shmkey   = 15;
+    optional uint32 max_table_num   = 16;
+    optional uint32 table_shmkey    = 17;
+
+    // db
+    optional string db_ip           = 30;
+    optional uint32 db_port         = 31;
+    optional string db_name         = 32;
+    optional string db_account      = 33;
+    optional string db_password     = 34;
+}
+
+
+
+
+
+//////////////////////////////////////////////////////////////////
+// db 服务器
+message DBURL
+{
+	required int32 id = 1;
+	required string url = 2;
+}
+message PBDBConnectionConfig
+{
+	repeated DBURL  url_item = 1;
+}
+
+message DBHanleDescItem
+{
+	required int32 	cmd = 1;
+	required int32  conn_id = 2;
+	required string sql = 3;
+}
+
+message PBDBMysqlConfig
+{
+	 repeated DBHanleDescItem handle_item = 1;
+}

@@ -1,0 +1,30 @@
+message PBTcpConfig
+{
+    optional uint32 port_num    = 1;
+    repeated uint32 ports       = 2;
+	optional uint32	cs_shmkey	= 3;
+	optional uint32	sc_shmkey	= 4;
+}
+
+message PBLogicConfig
+{
+	optional uint32	cs_shmkey	= 1;
+	optional uint32	sc_shmkey	= 2;
+    optional uint32 svr_type    = 3;
+}
+
+message PBProxyConfig
+{
+	optional uint32	port		= 1;
+}
+
+message PBSvrConfig
+{
+    oneof config_union
+    {
+        // deploy config
+        PBTcpConfig       tcp     = 1;
+        PBLogicConfig     logic   = 2;
+        PBProxyConfig     proxy   = 3;
+    }
+}

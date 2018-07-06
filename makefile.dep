@@ -1,0 +1,17 @@
+PROTOC:=$(PRO_DIR)/proto/protoc
+
+CFLAGS=-ggdb -O0 -std=c11 -Wall -fpermissive -Wno-sign-compare -D_GLIBCXX_USE_CXX11_ABI=0
+CXXFLAGS=-ggdb -O0 -std=c++11 -Wall -fpermissive -Wno-sign-compare -D_GLIBCXX_USE_CXX11_ABI=0
+
+INC :=	-I$(PRO_DIR)/include		\
+	-I$(PRO_DIR)/include/google	\
+	-I$(PRO_DIR)/core		\
+	-I$(PRO_DIR)/proto		\
+	-I$(PRO_DIR)/src/common		\
+	-I$(PRO_DIR)/include/mysql++3.2.3 \
+	-I$(PRO_DIR)/include/mysqlconnector-6.1.9 \
+	-I$(PRO_DIR)/include/openssl \
+
+LIB :=	-L$(PRO_DIR)/lib	\
+	-lcommon -lcore -lproto -lprotobuf -lmysqlpp -lmysqlclient -lpthread   \
+	-lcrypto -lssl -ldl
